@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ABES Club · Events</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <style>
+      :root {
+        --bg: #faf8ff;
+        --card: #fff;
+        --ink: #1e1b4b;
+        --mut: #6b6890;
+        --pri: #6d5dfc;
+        --pri2: #4f3fe0;
+        --acc: #ff6b6b;
+        --line: #e6e2f7;
+        --soft: #efecff;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #12102a;
+          --card: #1c1940;
+          --ink: #efedff;
+          --mut: #a5a1cf;
+          --line: #2d2a5c;
+          --soft: #28245a;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #12102a;
+        --card: #1c1940;
+        --ink: #efedff;
+        --mut: #a5a1cf;
+        --line: #2d2a5c;
+        --soft: #28245a;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          16px/1.55 system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          Arial,
+          sans-serif;
+      }
+      h1,
+      h2,
+      h3 {
+        line-height: 1.2;
+        margin: 0 0 0.5rem;
+      }
+      p {
+        margin: 0.3rem 0;
+      }
+      header {
+        position: sticky;
+        top: env(safe-area-inset-top, 0px);
+        z-index: 5;
+        background: var(--card);
+        border-bottom: 1px solid var(--line);
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: auto;
+        padding: 0 18px;
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 12px 0;
+        flex-wrap: wrap;
+      }
+      .logo {
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: var(--pri);
+      }
+      .logo b {
+        color: var(--acc);
+      }
+      nav a {
+        color: var(--mut);
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 99px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: 0.2s;
+      }
+      nav a:hover,
+      nav a.on {
+        background: var(--soft);
+        color: var(--pri);
+      }
+      main {
+        padding: 26px 0 50px;
+        animation: fade 0.4s;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .hero {
+        background: linear-gradient(135deg, #6d5dfc, #a855f7 60%, #ff6b6b);
+        color: #fff;
+        border-radius: 22px;
+        padding: 44px 28px;
+        margin-bottom: 34px;
+      }
+      .hero h1 {
+        font-size: clamp(1.8rem, 5vw, 2.9rem);
+      }
+      .hero p {
+        max-width: 560px;
+        opacity: 0.95;
+      }
+      .stats {
+        display: flex;
+        gap: 22px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .stats div {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+      .stats b {
+        display: block;
+        font-size: 1.5rem;
+      }
+      .btn {
+        background: var(--pri);
+        color: #fff;
+        border: 0;
+        border-radius: 10px;
+        padding: 10px 18px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: 0.2s;
+      }
+      .btn:hover {
+        background: var(--pri2);
+        transform: translateY(-2px);
+      }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--pri);
+        border: 1.5px solid var(--pri);
+      }
+      .btn.ghost:hover {
+        background: var(--soft);
+      }
+      .btn.light {
+        background: #fff;
+        color: var(--pri2);
+      }
+      .btn.red {
+        background: var(--acc);
+      }
+      .btn.sm {
+        padding: 5px 11px;
+        font-size: 0.85rem;
+      }
+      h2.sec {
+        font-size: 1.5rem;
+        margin: 30px 0 14px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+        gap: 18px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        transition: 0.25s;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 26px rgba(109, 93, 252, 0.18);
+      }
+      .card .btn {
+        margin-top: auto;
+        align-self: flex-start;
+      }
+      .card p:not(.meta) {
+        color: var(--mut);
+        font-size: 0.93rem;
+        margin-bottom: 10px;
+      }
+      .meta {
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+      .tag {
+        align-self: flex-start;
+        background: var(--soft);
+        color: var(--pri);
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 99px;
+      }
+      .feat {
+        background: var(--card);
+        border: 2px solid var(--pri);
+        border-radius: 18px;
+        padding: 24px;
+        display: grid;
+        gap: 8px;
+      }
+      .feat .tag {
+        background: var(--acc);
+        color: #fff;
+      }
+      .tools {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+      input,
+      select,
+      textarea {
+        font: inherit;
+        color: var(--ink);
+        background: var(--card);
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        padding: 9px 12px;
+        width: 100%;
+        outline: none;
+        transition: 0.2s;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--pri);
+        box-shadow: 0 0 0 3px var(--soft);
+      }
+      .tools input {
+        flex: 2 1 220px;
+        width: auto;
+      }
+      .tools select {
+        flex: 1 1 150px;
+        width: auto;
+      }
+      .empty {
+        text-align: center;
+        color: var(--mut);
+        padding: 40px 0;
+        grid-column: 1/-1;
+      }
+      dialog {
+        border: 0;
+        border-radius: 18px;
+        padding: 24px;
+        width: min(460px, 92vw);
+        background: var(--card);
+        color: var(--ink);
+        max-height: 90vh;
+      }
+      dialog::backdrop {
+        background: rgba(18, 16, 42, 0.55);
+      }
+      dialog[open] {
+        animation: fade 0.25s;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+      label input,
+      label select,
+      label textarea {
+        margin-top: 4px;
+        font-weight: 400;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .chk {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .chk input {
+        width: auto;
+        margin: 0;
+      }
+      .err {
+        color: var(--acc);
+        font-size: 0.88rem;
+        min-height: 1.2em;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .tabs .btn {
+        background: var(--soft);
+        color: var(--pri);
+      }
+      .tabs .btn.on {
+        background: var(--pri);
+        color: #fff;
+      }
+      .tw {
+        overflow-x: auto;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 640px;
+        font-size: 0.92rem;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      th {
+        color: var(--mut);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+      }
+      td .btn + .btn {
+        margin-left: 6px;
+      }
+      .login {
+        max-width: 360px;
+        margin: 40px auto;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 24px;
+      }
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .kpi {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+      }
+      .kpi b {
+        font-size: 1.6rem;
+        color: var(--pri);
+        display: block;
+      }
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        transform: translate(-50%, 80px);
+        background: var(--ink);
+        color: var(--bg);
+        padding: 10px 18px;
+        border-radius: 99px;
+        opacity: 0;
+        transition: 0.3s;
+        z-index: 20;
+      }
+      #toast.show {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+      footer {
+        text-align: center;
+        color: var(--mut);
+        font-size: 0.85rem;
+        padding: 20px;
+      }
+      @media (max-width: 520px) {
+        .two {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          padding: 30px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap bar">
+        <span class="logo">ABES <b>Club</b></span>
+        <nav>
+          <a href="#/home" data-p="home">Home</a
+          ><a href="#/events" data-p="events">Events</a
+          ><a href="#/admin" data-p="admin">Admin</a>
+        </nav>
+      </div>
+    </header>
+    <main class="wrap" id="app"></main>
+    <footer>© ABES Club · College Event Manager</footer>
+    <dialog id="dlg"></dialog>
+    <div id="toast"></div>
+    <script>
+      const $ = (s) => document.querySelector(s),
+        app = $("#app"),
+        dlg = $("#dlg");
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const mem = {};
+      const load = (k, d) => {
+        try {
+          const v = localStorage.getItem(k);
+          if (v) return JSON.parse(v);
+        } catch (e) {}
+        return mem[k] ?? d;
+      };
+      const save = (k, v) => {
+        mem[k] = v;
+        try {
+          localStorage.setItem(k, JSON.stringify(v));
+        } catch (e) {}
+      };
+      const iso = (n) => {
+        const d = new Date();
+        d.setDate(d.getDate() + n);
+        return d.toISOString().slice(0, 10);
+      };
+      const today = iso(0),
+        CATS = ["Tech", "Cultural", "Sports", "Workshop", "Social"];
+      const fd = (d) =>
+        new Date(d + "T00:00").toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      const seed = () => [
+        {
+          id: 1,
+          name: "HackNight 2026",
+          date: iso(6),
+          time: "6:00 PM",
+          venue: "CS Lab 2",
+          cat: "Tech",
+          desc: "A 12-hour overnight coding sprint. Team up, build fast, win prizes.",
+          featured: true,
+        },
+        {
+          id: 2,
+          name: "Open Mic Evening",
+          date: iso(3),
+          time: "5:30 PM",
+          venue: "Main Auditorium",
+          cat: "Cultural",
+          desc: "Music, poetry and stand-up from your fellow students.",
+        },
+        {
+          id: 3,
+          name: "Web Dev Workshop",
+          date: iso(10),
+          time: "11:00 AM",
+          venue: "Seminar Hall",
+          cat: "Workshop",
+          desc: "Build and deploy your first website with HTML, CSS and JavaScript.",
+        },
+        {
+          id: 4,
+          name: "Inter-Year Football Cup",
+          date: iso(14),
+          time: "4:00 PM",
+          venue: "College Ground",
+          cat: "Sports",
+          desc: "5-a-side knockout tournament. Register your team today.",
+        },
+        {
+          id: 5,
+          name: "Freshers Meetup",
+          date: iso(20),
+          time: "3:00 PM",
+          venue: "Cafeteria Lawn",
+          cat: "Social",
+          desc: "Games, snacks and new friends. Everyone is welcome.",
+        },
+        {
+          id: 6,
+          name: "Photo Walk",
+          date: iso(-8),
+          time: "7:00 AM",
+          venue: "Campus Gardens",
+          cat: "Cultural",
+          desc: "A morning photography walk around campus.",
+        },
+      ];
+      let events = load("nx_ev", null) || seed();
+      save("nx_ev", events);
+      let regs = load("nx_rg", []);
+      let admin = false,
+        tab = "events",
+        q = "",
+        cat = "",
+        rq = "",
+        rev = "";
+      const up = () =>
+        events
+          .filter((e) => e.date >= today)
+          .sort((a, b) => a.date.localeCompare(b.date));
+      const toast = (m) => {
+        const t = $("#toast");
+        t.textContent = m;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2200);
+      };
+      const card = (
+        e,
+      ) => `<article class="card"><span class="tag">${esc(e.cat)}</span><h3>${esc(e.name)}</h3>
+<p class="meta">📅 ${fd(e.date)} · ${esc(e.time)}</p><p class="meta">📍 ${esc(e.venue)}</p><p>${esc(e.desc)}</p>
+<button class="btn" data-reg="${e.id}" ${e.date < today ? "disabled" : ""}>${e.date < today ? "Closed" : "Register"}</button></article>`;
+
+      function home() {
+        const u = up(),
+          f = u.find((e) => e.featured) || u[0];
+        app.innerHTML = `<section class="hero"><h1>Where campus ideas become events</h1>
+ <p>ABES Club is a student community for coders, creators and curious minds. We run hackathons, workshops, cultural nights and sports meets all year.</p>
+ <div style="margin-top:16px"><a class="btn light" href="#/events">Browse events</a></div>
+ <div class="stats"><div><b>${events.length}</b>Events</div><div><b>${regs.length}</b>Registrations</div><div><b>${CATS.length}</b>Categories</div></div></section>
+ ${
+   f
+     ? `<h2 class="sec" style="margin-top:0">⭐ Featured event</h2><div class="feat"><span class="tag">${esc(f.cat)} · Featured</span><h2>${esc(f.name)}</h2>
+ <p class="meta">📅 ${fd(f.date)} · ${esc(f.time)} &nbsp; 📍 ${esc(f.venue)}</p><p>${esc(f.desc)}</p><div><button class="btn" data-reg="${f.id}">Register now</button></div></div>`
+     : ""
+ }
+ <h2 class="sec">Upcoming events</h2><div class="grid">${u.slice(0, 3).map(card).join("") || '<p class="empty">No upcoming events yet.</p>'}</div>`;
+      }
+
+      function evPage() {
+        app.innerHTML = `<h1>All events</h1><div class="tools"><input id="q" placeholder="🔍 Search events by name" value="${esc(q)}">
+ <select id="cat"><option value="">All categories</option>${CATS.map((c) => `<option ${c === cat ? "selected" : ""}>${c}</option>`).join("")}</select></div><div class="grid" id="list"></div>`;
+        fillList();
+      }
+      function fillList() {
+        const l = events
+          .filter(
+            (e) =>
+              e.name.toLowerCase().includes(q.toLowerCase()) &&
+              (!cat || e.cat === cat),
+          )
+          .sort((a, b) => a.date.localeCompare(b.date));
+        $("#list").innerHTML =
+          l.map(card).join("") ||
+          '<p class="empty">No events match your search.</p>';
+      }
+
+      function regForm(id) {
+        const e = events.find((x) => x.id == id);
+        if (!e) return;
+        dlg.innerHTML = `<h2>Register</h2><p class="meta">${esc(e.name)} · ${fd(e.date)}</p>
+ <form id="rf" data-id="${id}" novalidate style="margin-top:12px"><label>Full name<input name="name" required></label>
+ <label>Email<input name="email" type="email" required></label><label>College / Year<input name="college" placeholder="e.g. ABC College, 2nd Year" required></label>
+ <label>Phone number<input name="phone" type="tel" inputmode="numeric" required></label><div class="err" id="err"></div>
+ <div class="row"><button type="button" class="btn ghost" data-close>Cancel</button><button class="btn">Submit registration</button></div></form>`;
+        dlg.showModal();
+      }
+
+      function evForm(id) {
+        const e = events.find((x) => x.id == id) || {
+          name: "",
+          date: today,
+          time: "",
+          venue: "",
+          cat: CATS[0],
+          desc: "",
+          featured: false,
+        };
+        dlg.innerHTML = `<h2>${id ? "Edit" : "Add"} event</h2><form id="ef" data-id="${id || ""}" novalidate style="margin-top:12px">
+ <label>Event name<input name="name" value="${esc(e.name)}" required></label>
+ <div class="two"><label>Date<input name="date" type="date" value="${e.date}" required></label><label>Time<input name="time" value="${esc(e.time)}" placeholder="5:00 PM" required></label></div>
+ <div class="two"><label>Venue<input name="venue" value="${esc(e.venue)}" required></label><label>Category<select name="cat">${CATS.map((c) => `<option ${c === e.cat ? "selected" : ""}>${c}</option>`).join("")}</select></label></div>
+ <label>Description<textarea name="desc" rows="3">${esc(e.desc)}</textarea></label>
+ <label class="chk"><input type="checkbox" name="featured" ${e.featured ? "checked" : ""}> Featured event</label><div class="err" id="err"></div>
+ <div class="row"><button type="button" class="btn ghost" data-close>Cancel</button><button class="btn">Save event</button></div></form>`;
+        dlg.showModal();
+      }
+
+      function adminPage() {
+        if (!admin) {
+          app.innerHTML = `<div class="login"><h2>Admin login</h2><p class="meta" style="color:var(--mut)">Demo password: admin123</p>
+ <form id="lf" style="margin-top:12px"><label>Password<input type="password" id="pw" autocomplete="off"></label><div class="err" id="err"></div><button class="btn">Log in</button></form></div>`;
+          return;
+        }
+        app.innerHTML = `<div class="row" style="justify-content:space-between;margin:0 0 12px"><h1 style="margin:0">Dashboard</h1><button class="btn ghost sm" data-act="logout">Log out</button></div>
+ <div class="kpis"><div class="kpi"><b>${events.length}</b>Events</div><div class="kpi"><b>${up().length}</b>Upcoming</div><div class="kpi"><b>${regs.length}</b>Registrations</div></div>
+ <div class="tabs"><button class="btn ${tab === "events" ? "on" : ""}" data-tab="events">Events</button><button class="btn ${tab === "regs" ? "on" : ""}" data-tab="regs">Registrations</button></div><div id="pane"></div>`;
+        if (tab === "events") {
+          $("#pane").innerHTML =
+            `<div class="row" style="justify-content:flex-start;margin:0 0 12px"><button class="btn" data-act="add">+ Add event</button></div><div class="tw"><table><tr><th>Name</th><th>Date</th><th>Venue</th><th>Category</th><th>Regs</th><th></th></tr>
+  ${events
+    .map(
+      (
+        e,
+      ) => `<tr><td>${esc(e.name)}${e.featured ? " ⭐" : ""}</td><td>${fd(e.date)}</td><td>${esc(e.venue)}</td><td>${esc(e.cat)}</td><td>${regs.filter((r) => r.eid == e.id).length}</td>
+  <td><button class="btn sm ghost" data-edit="${e.id}">Edit</button><button class="btn sm red" data-del="${e.id}">Delete</button></td></tr>`,
+    )
+    .join("")}</table></div>`;
+        } else {
+          $("#pane").innerHTML =
+            `<div class="tools"><input id="rq" placeholder="🔍 Search name, email, college" value="${esc(rq)}"><select id="rev"><option value="">All events</option>${events.map((e) => `<option value="${e.id}" ${e.id == rev ? "selected" : ""}>${esc(e.name)}</option>`).join("")}</select></div><div class="tw"><table><thead><tr><th>Name</th><th>Email</th><th>College / Year</th><th>Phone</th><th>Event</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>`;
+          fillRows();
+        }
+      }
+      function fillRows() {
+        const s = rq.toLowerCase(),
+          l = regs.filter(
+            (r) =>
+              (!rev || r.eid == rev) &&
+              (r.name + r.email + r.college).toLowerCase().includes(s),
+          );
+        $("#rows").innerHTML =
+          l
+            .map(
+              (r) =>
+                `<tr><td>${esc(r.name)}</td><td>${esc(r.email)}</td><td>${esc(r.college)}</td><td>${esc(r.phone)}</td><td>${esc((events.find((e) => e.id == r.eid) || {}).name || "Deleted event")}</td><td><button class="btn sm red" data-rdel="${r.id}">Remove</button></td></tr>`,
+            )
+            .join("") ||
+          '<tr><td colspan="6" style="text-align:center;color:var(--mut)">No registrations found</td></tr>';
+      }
+
+      document.addEventListener("click", (e) => {
+        const t = e.target.closest("button");
+        if (!t) return;
+        const d = t.dataset;
+        if (d.reg) regForm(d.reg);
+        else if ("close" in d) dlg.close();
+        else if (d.tab) {
+          tab = d.tab;
+          adminPage();
+        } else if (d.act === "add") evForm();
+        else if (d.act === "logout") {
+          admin = false;
+          adminPage();
+        } else if (d.edit) evForm(d.edit);
+        else if (d.del) {
+          const ev = events.find((x) => x.id == d.del);
+          dlg.innerHTML = `<h2>Delete event?</h2><p>"${esc(ev.name)}" and its registrations will be removed.</p><div class="row"><button class="btn ghost" data-close>Cancel</button><button class="btn red" data-yes="${ev.id}">Delete</button></div>`;
+          dlg.showModal();
+        } else if (d.yes) {
+          events = events.filter((x) => x.id != d.yes);
+          regs = regs.filter((r) => r.eid != d.yes);
+          save("nx_ev", events);
+          save("nx_rg", regs);
+          dlg.close();
+          adminPage();
+          toast("Event deleted");
+        } else if (d.rdel) {
+          regs = regs.filter((r) => r.id != d.rdel);
+          save("nx_rg", regs);
+          adminPage();
+          toast("Registration removed");
+        }
+      });
+      document.addEventListener("input", (e) => {
+        if (e.target.id === "q") {
+          q = e.target.value;
+          fillList();
+        }
+        if (e.target.id === "rq") {
+          rq = e.target.value;
+          fillRows();
+        }
+      });
+      document.addEventListener("change", (e) => {
+        if (e.target.id === "cat") {
+          cat = e.target.value;
+          fillList();
+        }
+        if (e.target.id === "rev") {
+          rev = e.target.value;
+          fillRows();
+        }
+      });
+      document.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const f = e.target,
+          v = Object.fromEntries(new FormData(f)),
+          err = $("#err");
+        if (f.id === "lf") {
+          if ($("#pw").value === "admin123") {
+            admin = true;
+            adminPage();
+          } else err.textContent = "Wrong password.";
+          return;
+        }
+        if (f.id === "rf") {
+          const ph = (v.phone || "").replace(/[\s-]/g, "");
+          if (!v.name.trim() || !v.college.trim())
+            return (err.textContent = "Please fill in all fields.");
+          if (!/^\S+@\S+\.\S+$/.test(v.email))
+            return (err.textContent = "Enter a valid email.");
+          if (!/^\d{10}$/.test(ph))
+            return (err.textContent = "Phone must be 10 digits.");
+          if (
+            regs.some(
+              (r) =>
+                r.eid == f.dataset.id &&
+                r.email.toLowerCase() === v.email.toLowerCase(),
+            )
+          )
+            return (err.textContent = "This email is already registered.");
+          regs.push({
+            id: Date.now(),
+            eid: +f.dataset.id,
+            name: v.name.trim(),
+            email: v.email.trim(),
+            college: v.college.trim(),
+            phone: ph,
+          });
+          save("nx_rg", regs);
+          dlg.close();
+          toast("Registered successfully! 🎉");
+          if (location.hash === "#/home" || !location.hash) home();
+        }
+        if (f.id === "ef") {
+          if (!v.name.trim() || !v.date || !v.time.trim() || !v.venue.trim())
+            return (err.textContent =
+              "Name, date, time and venue are required.");
+          const o = {
+            name: v.name.trim(),
+            date: v.date,
+            time: v.time.trim(),
+            venue: v.venue.trim(),
+            cat: v.cat,
+            desc: v.desc.trim(),
+            featured: !!v.featured,
+          };
+          if (o.featured) events.forEach((x) => (x.featured = false));
+          if (f.dataset.id)
+            events = events.map((x) =>
+              x.id == f.dataset.id ? { ...x, ...o } : x,
+            );
+          else events.push({ id: Date.now(), ...o });
+          save("nx_ev", events);
+          dlg.close();
+          adminPage();
+          toast("Event saved");
+        }
+      });
+      function route() {
+        const h = location.hash.slice(2) || "home";
+        document
+          .querySelectorAll("nav a")
+          .forEach((a) => a.classList.toggle("on", a.dataset.p === h));
+        (({ home, events: evPage, admin: adminPage })[h] || home)();
+        scrollTo(0, 0);
+      }
+      addEventListener("hashchange", route);
+      route();
+    </script>
+  </body>
+</html>
